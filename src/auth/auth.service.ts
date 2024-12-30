@@ -7,7 +7,7 @@ import {
   LoginRequest,
   LoginResponse,
   RegisterRequest,
-  UserResponse,
+  RegisterResponse,
 } from '../model/auth.model';
 import { AuthValidation } from './auth.validation';
 import * as bcrypt from 'bcrypt';
@@ -22,7 +22,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async register(request: RegisterRequest): Promise<UserResponse> {
+  async register(request: RegisterRequest): Promise<RegisterResponse> {
     this.logger.debug(`Registering user ${JSON.stringify(request)}`);
 
     const registerRequest: RegisterRequest = this.validationService.validate(

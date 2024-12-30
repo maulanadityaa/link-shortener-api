@@ -1,10 +1,10 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import {
   LoginRequest,
   LoginResponse,
   RegisterRequest,
-  UserResponse,
+  RegisterResponse,
 } from '../model/auth.model';
 import { CommonResponse } from '../model/common-response.model';
 
@@ -15,11 +15,11 @@ export class AuthController {
   @Post('register')
   async register(
     @Body() request: RegisterRequest,
-  ): Promise<CommonResponse<UserResponse>> {
+  ): Promise<CommonResponse<RegisterResponse>> {
     const response = await this.authService.register(request);
 
     return {
-      statusCode: 201,
+      statusCode: HttpStatus.CREATED,
       message: 'User registered successfully',
       data: response,
     };
@@ -33,7 +33,7 @@ export class AuthController {
     const response = await this.authService.login(request);
 
     return {
-      statusCode: 200,
+      statusCode: HttpStatus.OK,
       message: 'User logged in successfully',
       data: response,
     };
