@@ -4,9 +4,9 @@ import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { JwtService } from '../jwt/jwt.service';
 import { UserResponse, UserUpdateRequest } from '../model/user.model';
-import { AuthValidation } from '../auth/auth.validation';
 import { ValidationService } from '../common/validation.service';
 import * as bcrypt from 'bcrypt';
+import { UserValidation } from './user.validation';
 
 @Injectable()
 export class UserService {
@@ -48,7 +48,7 @@ export class UserService {
     this.logger.debug(`Updating user ${JSON.stringify(request)}`);
 
     const updateRequest: UserUpdateRequest = this.validationService.validate(
-      AuthValidation.UPDATE,
+      UserValidation.UPDATE,
       request,
     );
 
