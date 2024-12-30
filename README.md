@@ -1,85 +1,99 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+
+<h2 align="center">Link Shortener API</h2>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+### Built With
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- [NestJS v10.4.15](https://nestjs.com/)
+- [Prisma v6.1.0](https://prisma.io/)
+- [PostgreSQL](https://www.postgresql.org/docs/)
+- [Supabase](https://supabase.com/)
 
-## Description
+### Prerequisites
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This is an example of how to list things you need to use the software and how to install them.
 
-## Project setup
+- Text Editor
+- PgAdmin or other PostgreSQL DBMS
+- Postman or other API Testing Apps<br/>
+- NPM 
 
-```bash
-$ npm install
+### Installation
+
+1. Clone the repo
+   ```sh
+    https://github.com/maulanadityaa/link-shortener-api.git
+   ```
+2. Rename .env.example to .env and change few config
+
+   ```env
+    PORT=3000
+    APP_NAME="Link Shortener API"
+    APP_DESCRIPTION="Link Shortener API"
+    APP_AUTHOR_NAME=YOUR_NAME
+    APP_AUTHOR_EMAIL=YOUR_EMAIL
+    APP_AUTHOR_URL=YOUR_URL
+    APP_VERSION="1.0.0"
+    APP_LOCAL_URL="http://localhost:8000"
+    APP_PROD_URL=YOUR_PROD_URL
+    
+    DATABASE_URL=YOUR_DATABASE_URL
+    DIRECT_URL=YOUR_DIRECT_URL
+    
+    JWT_SECRET=YOUR_JWT_SECRET
+   ```
+
+3. Install all packages
+
+   ```sh
+   npm install
+   ```
+
+4. Then run the project
+
+   ```sh
+   npm run start:dev
+   ```
+
+## API Documentation
+
+Visit -  [API Documentation](https://link-shortener-api-one.vercel.app/api/v1/docs)
+### Example Request
+
+- Endpoint : `/api/v1/links`
+- Method : POST
+- Header : Authorization : Bearer {token}
+- Content-Type: application/json
+- Accept: application/json
+- Body :
+
+```json
+{
+  "title": "Google",
+  "url": "https://www.google.com"
+}
 ```
 
-## Compile and run the project
+### Example Response
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```json
+{
+  "statusCode": 201,
+  "message": "Link created successfully",
+  "data": {
+    "id" : "9538107b-6596-44ca-9677-bb2682bb611f",
+    "url": "https://www.google.com",
+    "shortUrl": "https://link-shortener-api-one.vercel.app/r/Google",
+  }
+}
 ```
 
-## Run tests
+<!-- CONTACT -->
 
-```bash
-# unit tests
-$ npm run test
+## Contact
 
-# e2e tests
-$ npm run test:e2e
+M Maulana Z Aditya -
+Instagram - [@maulanadityaa](https://instagram.com/maulanadityaa)
 
-# test coverage
-$ npm run test:cov
-```
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Project Link: [https://github.com/maulanadityaa/link-shortener-api](https://github.com/maulanadityaa/link-shortener-api)
