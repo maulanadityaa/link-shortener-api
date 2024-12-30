@@ -7,6 +7,7 @@ import {
   RegisterResponse,
 } from '../model/auth.model';
 import { CommonResponse } from '../model/common-response.model';
+import { Auth } from './auth.decorator';
 
 @Controller('/api/v1/auth')
 export class AuthController {
@@ -35,6 +36,18 @@ export class AuthController {
     return {
       statusCode: HttpStatus.OK,
       message: 'User logged in successfully',
+      data: response,
+    };
+  }
+
+  @Post('logout')
+  @HttpCode(200)
+  async logout(@Auth() token: string): Promise<CommonResponse<boolean>> {
+    const response = await this.authService.logout(token);
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'User logged out successfully',
       data: response,
     };
   }

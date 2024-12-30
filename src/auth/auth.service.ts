@@ -75,10 +75,39 @@ export class AuthService {
       throw new HttpException('Invalid email or password', 401);
     }
 
+    await this.prismaService.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        is_login: true,
+      },
+    });
+
     const token = await this.jwtService.generateToken(user);
 
     return {
       token: token,
     };
+  }
+
+  async logout(token: string): Promise<boolean> {
+    this.logger.debug(`Logging out user with token ${token}`);
+
+    const decodedUser = await this.jwtService.verifyToken(token);
+    if (!decodedUser) {
+      throw new HttpException('Invalid token', 401);
+    }
+
+    await this.prismaService.user.update({
+      where: {
+        id: decodedUser.userId,
+      },
+      data: {
+        is_login: false,
+      },
+    });
+
+    return true;
   }
 }

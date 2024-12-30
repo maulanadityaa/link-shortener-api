@@ -6,6 +6,7 @@ import { JwtService } from '../jwt/jwt.service';
 import { UserResponse, UserUpdateRequest } from '../model/user.model';
 import { AuthValidation } from '../auth/auth.validation';
 import { ValidationService } from '../common/validation.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -28,6 +29,8 @@ export class UserService {
     });
     if (!user) {
       throw new HttpException('User not found', 404);
+    } else if (!user.is_login) {
+      throw new HttpException('User is not login', 401);
     }
 
     return {
@@ -61,6 +64,12 @@ export class UserService {
     });
     if (!user) {
       throw new HttpException('User not found', 404);
+    } else if (!user.is_login) {
+      throw new HttpException('User is not login', 401);
+    }
+
+    if (updateRequest.password) {
+      updateRequest.password = await bcrypt.hash(updateRequest.password, 10);
     }
 
     const updatedUser = await this.prismaService.user.update({
