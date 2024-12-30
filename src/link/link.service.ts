@@ -40,7 +40,6 @@ export class LinkService {
       LinkValidation.CREATE,
       request,
     );
-    console.log('createRequest', createRequest);
 
     const decodedUser = await this.jwtService.verifyToken(token);
     const user = await this.prismaService.user.findFirst({

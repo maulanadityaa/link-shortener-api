@@ -8,12 +8,20 @@ import {
 } from '../model/auth.model';
 import { CommonResponse } from '../model/common-response.model';
 import { Auth } from './auth.decorator';
+import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('/api/v1/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
+  @ApiOperation({ summary: 'Register a new user' })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'User registered successfully',
+    type: RegisterResponse,
+  })
+  @ApiBody({ type: RegisterRequest })
   async register(
     @Body() request: RegisterRequest,
   ): Promise<CommonResponse<RegisterResponse>> {
@@ -27,6 +35,13 @@ export class AuthController {
   }
 
   @Post('login')
+  @ApiOperation({ summary: 'Login to the system' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'User logged in successfully',
+    type: LoginResponse,
+  })
+  @ApiBody({ type: LoginRequest })
   @HttpCode(200)
   async login(
     @Body() request: LoginRequest,
@@ -41,6 +56,12 @@ export class AuthController {
   }
 
   @Post('logout')
+  @ApiOperation({ summary: 'Logout from the system' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'User logged out successfully',
+    type: Boolean,
+  })
   @HttpCode(200)
   async logout(@Auth() token: string): Promise<CommonResponse<boolean>> {
     const response = await this.authService.logout(token);
