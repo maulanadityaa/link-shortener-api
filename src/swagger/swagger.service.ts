@@ -27,6 +27,14 @@ export class SwaggerService {
       customJs: [
         'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js',
         'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js',
+        `
+      window.addEventListener('load', function() {
+        var link = document.createElement('link');
+        link.rel = 'icon';
+        link.href = '/favicon.ico'; // Use the default Swagger UI favicon
+        document.head.appendChild(link);
+      });
+    `,
       ],
       customCssUrl: [
         'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css',

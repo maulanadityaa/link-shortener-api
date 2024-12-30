@@ -14,12 +14,24 @@ const jwt_module_1 = require("./jwt/jwt.module");
 const user_module_1 = require("./user/user.module");
 const link_module_1 = require("./link/link.module");
 const swagger_module_1 = require("./swagger/swagger.module");
+const serve_static_1 = require("@nestjs/serve-static");
+const path_1 = require("path");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [common_module_1.CommonModule, auth_module_1.AuthModule, jwt_module_1.JwtAuthModule, user_module_1.UserModule, link_module_1.LinkModule, swagger_module_1.SwaggerModule],
+        imports: [
+            common_module_1.CommonModule,
+            auth_module_1.AuthModule,
+            jwt_module_1.JwtAuthModule,
+            user_module_1.UserModule,
+            link_module_1.LinkModule,
+            swagger_module_1.SwaggerModule,
+            serve_static_1.ServeStaticModule.forRoot({
+                rootPath: (0, path_1.join)(__dirname, '..', 'public'),
+            }),
+        ],
         controllers: [],
         providers: [],
     })
