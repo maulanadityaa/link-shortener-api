@@ -38,8 +38,8 @@ This is an example of how to list things you need to use the software and how to
     APP_LOCAL_URL="http://localhost:8000"
     APP_PROD_URL=YOUR_PROD_URL
     
-    DATABASE_URL=YOUR_DATABASE_URL
-    DIRECT_URL=YOUR_DIRECT_URL
+    DATABASE_URL=YOUR_SUPABASE_DATABASE_URL 
+    DIRECT_URL=YOUR_SUPABASE_DIRECT_URL
     
     JWT_SECRET=YOUR_JWT_SECRET
    ```
@@ -50,7 +50,13 @@ This is an example of how to list things you need to use the software and how to
    npm install
    ```
 
-4. Then run the project
+4. Run the migration
+
+   ```sh
+    npx prisma migrate dev
+    ```
+
+5. Then run the project
 
    ```sh
    npm run start:dev
@@ -59,6 +65,7 @@ This is an example of how to list things you need to use the software and how to
 ## API Documentation
 
 Visit -  [API Documentation](https://link-shortener-api-one.vercel.app/api/v1/docs)
+
 ### Example Request
 
 - Endpoint : `/api/v1/links`
@@ -84,7 +91,7 @@ Visit -  [API Documentation](https://link-shortener-api-one.vercel.app/api/v1/do
   "data": {
     "id" : "9538107b-6596-44ca-9677-bb2682bb611f",
     "url": "https://www.google.com",
-    "shortUrl": "https://link-shortener-api-one.vercel.app/r/Google",
+    "shortUrl": "https://link-shortener-api-one.vercel.app/r/Google"
   }
 }
 ```

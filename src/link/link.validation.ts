@@ -8,7 +8,7 @@ export class LinkValidation {
       .url()
       .refine(
         (url) => {
-          return /https?:\/\/.*\.\w+$/.test(url);
+          return /^https?:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}.*$/.test(url);
         },
         {
           message: "URL must have a valid domain with a TLD (e.g., '.com')",
