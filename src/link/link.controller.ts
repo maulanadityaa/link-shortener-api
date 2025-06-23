@@ -96,7 +96,7 @@ export class LinkController {
   ) {
     const redirectUrl = await this.linkService.getLink(shortUrl, url);
 
-    res.redirect(redirectUrl);
+    res.redirect(HttpStatus.MOVED_PERMANENTLY, redirectUrl);
   }
 
   @Get('/api/v1/links')

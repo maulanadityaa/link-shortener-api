@@ -34,6 +34,18 @@ let LinkService = class LinkService {
             .replace(/[^a-zA-Z0-9]/g, '')
             .slice(0, length);
     }
+    async titleMustBeUnique(title) {
+        this.logger.debug(`Checking if title ${title} is unique`);
+        const count = await this.prismaService.link.count({
+            where: {
+                title: title,
+            },
+        });
+        if (count > 0) {
+            throw new common_1.HttpException('Title already exists', 400);
+        }
+        return true;
+    }
     async createWithUser(token, url, request) {
         this.logger.debug(`Creating link with data ${JSON.stringify(request)}`);
         const createRequest = this.validationService.validate(link_validation_1.LinkValidation.CREATE, request);
@@ -51,14 +63,7 @@ let LinkService = class LinkService {
         }
         let shorUrl;
         if (createRequest.title) {
-            const title = await this.prismaService.link.count({
-                where: {
-                    title: createRequest.title,
-                },
-            });
-            if (title > 0) {
-                throw new common_1.HttpException('Title already exists', 400);
-            }
+            await this.titleMustBeUnique(createRequest.title);
             shorUrl = url + '/r/' + createRequest.title;
         }
         else {
@@ -85,7 +90,9 @@ let LinkService = class LinkService {
     async createWithoutUser(url, request) {
         this.logger.debug(`Creating link with data ${JSON.stringify(request)}`);
         const createRequest = this.validationService.validate(link_validation_1.LinkValidation.CREATE, request);
-        const shorUrl = url + '/r/' + (await this.generateRandomString());
+        const title = await this.generateRandomString();
+        await this.titleMustBeUnique(title);
+        const shorUrl = url + '/r/' + title;
         const link = await this.prismaService.link.create({
             data: {
                 title: createRequest.title,

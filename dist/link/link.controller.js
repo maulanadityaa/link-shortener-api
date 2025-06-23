@@ -41,7 +41,7 @@ let LinkController = class LinkController {
     }
     async redirect(shortUrl, url, res) {
         const redirectUrl = await this.linkService.getLink(shortUrl, url);
-        res.redirect(redirectUrl);
+        res.redirect(common_1.HttpStatus.MOVED_PERMANENTLY, redirectUrl);
     }
     async getLinks(token, title, page = 1, rowsPerPage = 10) {
         const request = {

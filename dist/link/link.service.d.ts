@@ -11,6 +11,7 @@ export declare class LinkService {
     private jwtService;
     constructor(prismaService: PrismaService, logger: Logger, validationService: ValidationService, jwtService: JwtService);
     generateRandomString(length?: number): Promise<string>;
+    titleMustBeUnique(title: string): Promise<boolean>;
     createWithUser(token: string, url: string, request: LinkRequest): Promise<LinkResponse>;
     createWithoutUser(url: string, request: LinkRequest): Promise<LinkResponse>;
     getLink(shortUrl: string, url: string): Promise<string>;

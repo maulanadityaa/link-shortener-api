@@ -29,6 +29,22 @@ export class LinkService {
       .slice(0, length);
   }
 
+  async titleMustBeUnique(title: string): Promise<boolean> {
+    this.logger.debug(`Checking if title ${title} is unique`);
+
+    const count = await this.prismaService.link.count({
+      where: {
+        title: title,
+      },
+    });
+
+    if (count > 0) {
+      throw new HttpException('Title already exists', 400);
+    }
+
+    return true;
+  }
+
   async createWithUser(
     token: string,
     url: string,
@@ -55,14 +71,7 @@ export class LinkService {
 
     let shorUrl: string;
     if (createRequest.title) {
-      const title = await this.prismaService.link.count({
-        where: {
-          title: createRequest.title,
-        },
-      });
-      if (title > 0) {
-        throw new HttpException('Title already exists', 400);
-      }
+      await this.titleMustBeUnique(createRequest.title);
 
       shorUrl = url + '/r/' + createRequest.title;
     } else {
@@ -100,7 +109,10 @@ export class LinkService {
       request,
     );
 
-    const shorUrl = url + '/r/' + (await this.generateRandomString());
+    const title = await this.generateRandomString();
+    await this.titleMustBeUnique(title);
+    const shorUrl = url + '/r/' + title;
+
     const link = await this.prismaService.link.create({
       data: {
         title: createRequest.title,
